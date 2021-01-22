@@ -26,10 +26,20 @@
       };
       // html구문에서 id="capture"인 <button>을 생성하고 해당 element를 지정
       var captureButton = document.getElementById("capture");
+      var stopButton = document.getElementById("stop");
 
       navigator.mediaDevices.getUserMedia({ video: true }).then(handleSuccess);
       // 현재 사용중인 브라우저 객체(navigator)의 mediaDevices 인터페이스를
       // 이용하여 사용자의 미디어 입력장치 사용권한을 받습니다.
+
+      stopButton.addEventListener("click", function () {
+        stream = player.srcObject;
+        tracks = stream.getTracks();
+        tracks.forEach(function (track) {
+          track.stop();
+        });
+        player.srcObject = null;
+      });
 
       captureButton.addEventListener("click", async function () {
         // mobilenet을 로딩합니다.
