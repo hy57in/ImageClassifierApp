@@ -2,10 +2,17 @@
 
 MobileNet v1의 Javascript api를 이용해 브라우저용 이미지 분류기 앱
 
+###
 
+Heroku를 통한 App 배포
+https://radiant-caverns-50899.herokuapp.com
 
+### App 이미지
+
+![img](./img.jpg)
 
 ### 파일 구조
+
 .
 ├── README.md
 ├── composer.json
