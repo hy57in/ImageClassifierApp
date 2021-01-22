@@ -24,10 +24,36 @@
       var handleSuccess = function (stream) {
         player.srcObject = stream;
       };
+      // html구문에서 id="capture"인 <button>을 생성하고 해당 element를 지정
+      var captureButton = document.getElementById("capture");
 
       navigator.mediaDevices.getUserMedia({ video: true }).then(handleSuccess);
       // 현재 사용중인 브라우저 객체(navigator)의 mediaDevices 인터페이스를
       // 이용하여 사용자의 미디어 입력장치 사용권한을 받습니다.
+
+      captureButton.addEventListener("click", async function () {
+        // mobilenet을 로딩합니다.
+        net = await mobilenet.load();
+        console.log("Successfully loaded model");
+
+        // Tensorflow.js data API를 이용해 웹캠에서 이미지를 캡쳐하여
+        // 텐서로 저장합니다(mobilenet 전달을 위해 224 x 224 크기로 resize합니다.)
+        const webcam = await tf.data.webcam(player, {
+          resizeWidth: 224,
+          resizeHeight: 224,
+        });
+        // 특정 시점의 이미지 텐서를 캡쳐합니다.
+        const img = await webcam.capture();
+        // 로딩된 mobilenet 모델에 전달합니다.
+        document.getElementById("console").innerText = `
+        const result = await net.classify(img);
+        // classify를 통해 전달받은 결과를 html element에 전달합니다.
+        prediction: ${result[0].className}\n
+        probability: ${result[0].probability}
+        `;
+        // img 텐서를 지웁니다.
+        img.dispose();
+      });
     </script>
   </body>
 </html>
