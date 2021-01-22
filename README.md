@@ -12,7 +12,7 @@ https://radiant-caverns-50899.herokuapp.com
 
 ### 파일 구조
 
-.
+.  
 ├── README.md  
 ├── composer.json  
 ├── index.css  
