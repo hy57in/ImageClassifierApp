@@ -9,7 +9,7 @@ https://radiant-caverns-50899.herokuapp.com
 
 ### App 이미지
 
-![img](./img.jpg)
+![img](./img.png)
 
 ### 파일 구조
 
